@@ -1,7 +1,6 @@
-import './Sidebar.css';
-// Components
-import SidebarOption from './SidebarOption';
-// Material UI and Icons
+import { useDispatch } from 'react-redux';
+import { openSendMessage } from './features/mailSlice';
+
 import { Button, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import InboxIcon from '@material-ui/icons/Inbox';
@@ -15,10 +14,19 @@ import PersonIcon from '@material-ui/icons/Person';
 import DuoIcon from '@material-ui/icons/Duo';
 import PhoneIcon from '@material-ui/icons/Phone';
 
+import SidebarOption from './SidebarOption';
+
+import './Sidebar.css';
+
 const Sidebar = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className='sidebar'>
-      <Button startIcon={<AddIcon fontSize='large' />} className='sidebar__compose'>
+      <Button
+        startIcon={<AddIcon fontSize='large' />}
+        className='sidebar__compose'
+        onClick={() => dispatch(openSendMessage())}>
         Compose
       </Button>
 
