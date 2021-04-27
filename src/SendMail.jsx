@@ -8,6 +8,9 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import './SendMail.css';
 
+import firebase from 'firebase';
+import { db } from './firebase';
+
 const SendMail = () => {
   const dispatch = useDispatch();
 
@@ -17,9 +20,14 @@ const SendMail = () => {
     formState: { errors }
   } = useForm();
 
-  const onSubmit = formData => console.log(formData);
+  const onSubmit = formData => {
+    db.collection('emails').add({
+      ...formData,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-  console.log(errors);
+    dispatch(closeSendMessage());
+  };
 
   return (
     <div className='sendMail'>
